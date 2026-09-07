@@ -82,12 +82,7 @@ class FaceEncoder:
             key=lambda item: (item[1], max(0.0, item[0][2] - item[0][0]) * max(0.0, item[0][3] - item[0][1])),
         )
         crop = self._crop(image, box)
-        face_tensor = fixed_image_standardization(
-            torch.from_numpy(np.asarray(crop.resize((160, 160), Image.Resampling.BILINEAR)))
-            .permute(2, 0, 1)
-            .float()
-            / 255.0
-        ).unsqueeze(0).to(self.device)
+        face_tensor = self._face_tensor(crop)
 
         with torch.inference_mode():
             embedding = self.embedder(face_tensor).squeeze(0).cpu().tolist()
@@ -109,3 +104,10 @@ class FaceEncoder:
         if right <= left or bottom <= top:
             raise FacePipelineError("The detected face bounding box is invalid.")
         return image.crop((left, top, right, bottom))
+
+    def _face_tensor(self, crop: Image.Image) -> torch.Tensor:
+        # PIL-backed arrays may be read-only; copy ensures torch receives writable memory.
+        pixels = np.array(crop.resize((160, 160), Image.Resampling.BILINEAR), copy=True)
+        return fixed_image_standardization(
+            torch.from_numpy(pixels).permute(2, 0, 1).float() / 255.0
+        ).unsqueeze(0).to(self.device)

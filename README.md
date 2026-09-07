@@ -1,4 +1,4 @@
-# FaceChain — HH Goa 2026 Task 3
+# HHGoa-Trace — HH Goa 2026 Task 3
 
 A Python CLI that turns an authorized face-image scan into a verifiable proof:
 
@@ -97,7 +97,7 @@ The project uses `eth-tester` with the PyEVM backend: it is a real local Ethereu
 ## Repository layout
 
 ```text
-facechain/
+HHGoa-Trace/
 ├── main.py
 ├── face_pipeline.py
 ├── reverse_search.py
