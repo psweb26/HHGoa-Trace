@@ -1,0 +1,12 @@
+# `eth-tester[py-evm]` additionally installs safe-pysha3, which has no Windows
+# wheel for CPython 3.11. Installing the compatible backend directly avoids it.
+eth-tester==0.14.0b1
+py-evm==0.12.1b1
+web3==8.0.0
+facenet-pytorch==2.6.0
+torch==2.2.2
+torchvision==0.17.2
+numpy==1.26.4
+Pillow==10.2.0
+python-dotenv==1.2.3
+requests==2.34.2
