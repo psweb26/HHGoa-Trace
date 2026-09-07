@@ -11,6 +11,23 @@ input image -> MTCNN face detection -> InceptionResnetV1 embedding
 
 This is intentionally a command-line project: no website, database, or hidden result set is involved.
 
+## Architecture
+
+![HHGoa-Trace architecture](assets/architecture.png)
+
+```text
+Input image
+  -> MTCNN face detection
+  -> InceptionResnetV1 embedding
+  -> SerpApi image upload
+  -> Google Lens reverse-image search
+  -> validated social-media post
+  -> canonical JSON + SHA-256
+  -> Ethereum-compatible local transaction (PyEVM)
+  -> on-chain read-back + hash comparison
+  -> VERIFIED / FAILED
+```
+
 ## What it does
 
 1. Loads the supplied image, detects all faces with **MTCNN**, and chooses the highest-confidence face (face area breaks ties).
